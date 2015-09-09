@@ -1,6 +1,8 @@
 #This recipe installs and configures a IPS on a machine
 
 
+include_recipe 'fail2ban'
+
 suricata_version = '2.0.8'
 cookbook_file "/root/suricata-#{suricata_version}.tar.gz" do
   source "suricata-#{suricata_version}.tar.gz"
