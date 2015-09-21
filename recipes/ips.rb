@@ -2,8 +2,11 @@
 
 
 include_recipe 'fail2ban'
+include_recipe 'chef-vault'
 
-suricata_version = '2.0.8'
+
+suricata_version = node['cog_ips']['suricata_version']
+
 cookbook_file "/root/suricata-#{suricata_version}.tar.gz" do
   source "suricata-#{suricata_version}.tar.gz"
   owner 'root'
@@ -74,6 +77,58 @@ cookbook_file '/etc/oinkmaster.conf' do
   action :create
 end
 
+directory "/etc/suricata" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+package 'git'
+
+#### deploy key stuff
+
+directory '/root/.ssh' do
+  action :create
+  mode '0700'
+  owner 'root'
+  group 'root'
+end
+
+keys=chef_vault_item(node['cog_ips']['rules_deploy_vault'],node['cog_ips']['rules_deploy_bucket'])
+
+template "/root/.ssh/rules.git.key" do
+  source 'key.erb'
+  mode '0600'
+  owner 'root'
+  group 'root'
+  variables({
+    :key => keys['rules']
+    })
+end
+
+template "/root/rules_ssh_wrapper.sh" do
+  action :create
+  source "ssh_wrapper.erb"
+  mode '0755'
+  owner 'root'
+  group 'root'
+  variables({
+    :keypath => "/root/.ssh/rules.git.key",
+  })
+end
+
+#### end deploy key stuff
+
+git "/etc/suricata/rules" do
+  action :sync
+  user 'root'
+  group 'root'
+  ssh_wrapper "/root/rules_ssh_wrapper.sh"
+  repository node['cog_ips']['rules_repo']
+  notifies :run, 'execute[reload]', :delayed
+end
+
 ['classification.config','reference.config','suricata.yaml'].each do |n|
   cookbook_file "/etc/suricata/#{n}" do
     source n
@@ -81,6 +136,7 @@ end
     group 'root'
     mode '0600'
     action :create
+    notifies :run, 'execute[reload]', :delayed
   end
 end
 
@@ -94,4 +150,9 @@ end
 
 service 'supervisord' do
   action [:enable, :start]
+end
+
+execute 'reload' do
+  action :nothing
+  command 'kill -USR2 `supervisorctl pid suricata`'
 end
