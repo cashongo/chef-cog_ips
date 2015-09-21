@@ -1,23 +1,22 @@
 cog_ips Cookbook
 ================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+This cookbook installs suricata to your linux. It uses supervisor for managing suricata process
+(systemd is not universally available)
 
-Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+It uses fail2ban supermarket cookbook https://supermarket.chef.io/cookbooks/fail2ban to control
+ssh.
 
-e.g.
-#### packages
-- `toaster` - cog_ips needs toaster to brown your bagel.
+I do not expect any other local service running/ports open in local machine, so
+i have made no effort to contain IN/OUT traffic from machine, only forwarded
+traffic.
+
+Download suricata latest version source from http://suricata-ids.org/download/ and put
+this file to files/default directory.
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
 
-e.g.
 #### cog_ips::default
 <table>
   <tr>
@@ -27,20 +26,37 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['cog_ips']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
+    <td><tt>['cog_ips']['suricata_version']</tt></td>
+    <td>String</td>
+    <td>Installed suricata version</td>
+    <td><tt>true</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['cog_ips']['rules_deploy_vault']</tt></td>
+    <td>String</td>
+    <td>Vault name for deploy key</td>
+    <td><tt>true</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['cog_ips']['rules_deploy_bucket']</tt></td>
+    <td>String</td>
+    <td>Bucket inside vault for deploy key</td>
+    <td><tt>true</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['cog_ips']['rules_repo']</tt></td>
+    <td>String</td>
+    <td>Suricata rules repository url</td>
     <td><tt>true</tt></td>
   </tr>
 </table>
 
+
 Usage
 -----
 #### cog_ips::default
-TODO: Write usage instructions for each cookbook.
 
-e.g.
-Just include `cog_ips` in your node's `run_list`:
+Include `cog_ips` in your node's `run_list`:
 
 ```json
 {
@@ -51,18 +67,18 @@ Just include `cog_ips` in your node's `run_list`:
 }
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+You also need iptables rules for sending network traffic to suricata instead of
+going through untouched.
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+    iptables -t filter -A FORWARD -j NFQUEUE --queue-num 1
 
-License and Authors
--------------------
-Authors: TODO: List authors
+Oinkmaster
+----------
+
+Running oinkmaster:
+oinkmaster.pl -C /etc/oinkmaster.conf -o /etc/suricata/rules
+
+This changes files in /etc/suricata/rules, remember to sync changes to ghithub!
+
+Best way to update rules would be to download and test rules in workstation
+then update github and then let machine deploy them.
