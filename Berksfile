@@ -5,3 +5,4 @@ metadata
 
 cookbook 'yum-epel'
 cookbook 'fail2ban'
+cookbook 'chef-vault'

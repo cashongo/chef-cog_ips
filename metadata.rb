@@ -8,3 +8,4 @@ version          '0.1.2'
 
 depends         'yum-epel','~> 0.6.2'
 depends         'fail2ban','~> 2.3.0'
+depends         'chef-vault','~> 1.3.0'
