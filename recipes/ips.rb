@@ -21,7 +21,7 @@ execute 'Extract suricata source' do
   not_if {  ::File.exists?("/root/suricata-#{suricata_version}/configure") }
 end
 
-['libnetfilter_queue-devel','libpcap-devel', 'make', 'gcc','pcre-devel','libyaml-devel','file-devel','zlib-devel','jansson-devel','nss-devel','libcap-ng-devel','libnet-devel','supervisor','perl','perl-Getopt-Long','wget' ].each do |n|
+['libnetfilter_queue-devel','libpcap-devel', 'make', 'gcc','pcre-devel','libyaml-devel','file-devel','zlib-devel','jansson-devel','nss-devel','libcap-ng-devel','libnet-devel','perl','perl-Getopt-Long','wget' ].each do |n|
   package n
 end
 
@@ -97,13 +97,13 @@ end
 
 keys=chef_vault_item(node['cog_ips']['rules_deploy_vault'],node['cog_ips']['rules_deploy_bucket'])
 
-template "/root/.ssh/rules.git.key" do
+template "/root/.ssh/#{node['cog_ips']['rules_deploy_key']}" do
   source 'key.erb'
   mode '0600'
   owner 'root'
   group 'root'
   variables({
-    :key => keys['rules']
+    :key => keys[node['cog_ips']['rules_deploy_key']]
     })
 end
 
@@ -114,7 +114,7 @@ template "/root/rules_ssh_wrapper.sh" do
   owner 'root'
   group 'root'
   variables({
-    :keypath => "/root/.ssh/rules.git.key",
+    :keypath => "/root/.ssh/#{node['cog_ips']['rules_deploy_key']}",
   })
 end
 
@@ -129,9 +129,9 @@ git "/etc/suricata/rules" do
   notifies :run, 'execute[reload]', :delayed
 end
 
-['classification.config','reference.config','suricata.yaml'].each do |n|
-  cookbook_file "/etc/suricata/#{n}" do
-    source n
+['classification.config','reference.config','suricata.yaml'].each do |file|
+  cookbook_file "/etc/suricata/#{file}" do
+    source file
     owner 'root'
     group 'root'
     mode '0600'
@@ -140,19 +140,7 @@ end
   end
 end
 
-cookbook_file '/etc/supervisord.d/suricata.ini' do
-  source 'suricata_supervisor.conf'
-  owner 'root'
-  group 'root'
-  mode '0600'
-  action :create
-end
-
-service 'supervisord' do
-  action [:enable, :start]
-end
-
-execute 'reload' do
-  action :nothing
-  command 'kill -USR2 `supervisorctl pid suricata`'
+runit_service 'suricata' do
+  default_logger true
+  action [ :enable, :start ]
 end

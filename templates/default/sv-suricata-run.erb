@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# File maintained by chef
+# MANUAL CHANGES WILL BE IGNORED
+
+exec 2>&1
+exec chpst -u root /usr/bin/suricata -c /etc/suricata/suricata.yaml -q 1
