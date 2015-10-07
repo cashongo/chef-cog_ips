@@ -131,7 +131,7 @@ end
 
 ['classification.config','reference.config','suricata.yaml'].each do |file|
   cookbook_file "/etc/suricata/#{file}" do
-    source n
+    source file
     owner 'root'
     group 'root'
     mode '0600'
