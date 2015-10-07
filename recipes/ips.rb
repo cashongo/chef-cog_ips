@@ -40,7 +40,7 @@ end
 execute "Install suricata" do
   command "make install-full"
   cwd "/root/suricata-#{suricata_version}"
-  not_if { ::FileUtils.identical?('/usr/bin/suricata',"/root/suricata-#{suricata_version}/src/.libs/suricata")}
+  only_if { !::File.exists?('/usr/bin/suricata') || !::FileUtils.identical?('/usr/bin/suricata',"/root/suricata-#{suricata_version}/src/.libs/suricata")}
 end
 
 execute "ldconfig" do
