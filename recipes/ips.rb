@@ -40,7 +40,7 @@ end
 execute "Install suricata" do
   command "make install-full"
   cwd "/root/suricata-#{suricata_version}"
-  not_if { ::FileUtils.identical?('/usr/bin/suricata',"/root/suricata-#{suricata_version}/src/.libs/suricata")}
+  only_if { !::File.exists?('/usr/bin/suricata') || !::FileUtils.identical?('/usr/bin/suricata',"/root/suricata-#{suricata_version}/src/.libs/suricata")}
 end
 
 execute "ldconfig" do
@@ -126,7 +126,7 @@ git "/etc/suricata/rules" do
   group 'root'
   ssh_wrapper "/root/rules_ssh_wrapper.sh"
   repository node['cog_ips']['rules_repo']
-  notifies :run, 'execute[reload]', :delayed
+  notifies :usr2, 'runit_service[suricata]', :delayed
 end
 
 ['classification.config','reference.config','suricata.yaml'].each do |file|
@@ -136,7 +136,8 @@ end
     group 'root'
     mode '0600'
     action :create
-    notifies :run, 'execute[reload]', :delayed
+    # USR2 signal to suricata reloads rules
+    notifies :usr2, 'runit_service[suricata]', :delayed
   end
 end
 
