@@ -126,7 +126,7 @@ git "/etc/suricata/rules" do
   group 'root'
   ssh_wrapper "/root/rules_ssh_wrapper.sh"
   repository node['cog_ips']['rules_repo']
-  notifies :run, 'execute[reload]', :delayed
+  notifies :usr2, 'runit_service[suricata]', :delayed
 end
 
 ['classification.config','reference.config','suricata.yaml'].each do |file|
@@ -136,7 +136,8 @@ end
     group 'root'
     mode '0600'
     action :create
-    notifies :run, 'execute[reload]', :delayed
+    # USR2 signal to suricata reloads rules
+    notifies :usr2, 'runit_service[suricata]', :delayed
   end
 end
 
