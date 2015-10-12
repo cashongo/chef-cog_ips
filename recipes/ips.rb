@@ -22,7 +22,7 @@ execute 'Extract suricata source' do
   not_if {  ::File.exists?("/root/suricata-#{suricata_version}/configure") }
 end
 
-['libnetfilter_queue-devel','libpcap-devel', 'make', 'gcc','pcre-devel','libyaml-devel','file-devel','zlib-devel','jansson-devel','nss-devel','libcap-ng-devel','libnet-devel','perl','perl-Getopt-Long','wget' ].each do |n|
+['libnetfilter_queue-devel','libnetfilter_log-devel','libpcap-devel', 'make', 'gcc','pcre-devel','libyaml-devel','file-devel','zlib-devel','jansson-devel','nss-devel','libcap-ng-devel','libnet-devel','perl','perl-Getopt-Long','wget' ].each do |n|
   package n
 end
 
