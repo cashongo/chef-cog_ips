@@ -48,7 +48,7 @@ execute "ldconfig" do
   command "ldconfig"
 end
 
-directory "/var/log/suricata" do
+directory "/var/log/suricata_ips" do
   owner 'root'
   group 'root'
   mode '0700'
