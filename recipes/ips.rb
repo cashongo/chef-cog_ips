@@ -27,7 +27,7 @@ end
 end
 
 execute "Configure suricata build" do
-  command "./configure --enable-nfqueue --prefix=/usr --sysconfdir=/etc --localstatedir=/var"
+  command "./configure --enable-nfqueue --enable-nflog --prefix=/usr --sysconfdir=/etc --localstatedir=/var"
   cwd "/root/suricata-#{suricata_version}"
   not_if { ::File.exists?("/root/suricata-#{suricata_version}/config.log")}
 end
