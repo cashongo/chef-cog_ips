@@ -70,7 +70,25 @@ Include `cog_ips` in your node's `run_list`:
 You also need iptables rules for sending network traffic to suricata instead of
 going through untouched.
 
-    iptables -t filter -A FORWARD -j NFQUEUE --queue-num 1
+Firewall rules
+--------------
+
+In case of IPS (possible to drop packets) those rules should be applied:
+
+```
+iptables -A FORWARD -j NFQUEUE --queue-bypass --queue-num 1
+iptables -A INPUT  -j NFQUEUE --queue-bypass --queue-num 1
+iptables -A OUTPUT  -j NFQUEUE --queue-bypass --queue-num 1
+```
+
+In case of IDS (just watching traffic) those rules should be applied
+
+```
+iptables -A INPUT -j NFLOG --nflog-group 2
+iptables -A OUTPUT -j NFLOG --nflog-group 2
+iptables -A FORWARD -j NFLOG --nflog-group 2
+```
+
 
 Oinkmaster
 ----------
