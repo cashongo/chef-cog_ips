@@ -1,3 +1,6 @@
+# 0.1.6 (2015-10-13)
+- change suricata to use NFLOG instead of NFQ
+
 # 0.1.4
 - upgrade suricata to 2.0.9
 - fix install of suricata executable
