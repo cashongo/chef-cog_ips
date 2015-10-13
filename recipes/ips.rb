@@ -146,3 +146,11 @@ runit_service 'suricata' do
   default_logger true
   action [ :enable, :start ]
 end
+
+cookbook_file "/etc/logrotate.d/suricata" do
+  source "suricata_logrotate.conf"
+  owner 'root'
+  group 'root'
+  mode '0644'
+  action :create
+end
