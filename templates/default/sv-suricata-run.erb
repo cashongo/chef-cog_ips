@@ -4,4 +4,5 @@
 # MANUAL CHANGES WILL BE IGNORED
 
 exec 2>&1
+/usr/local/bin/suricata_firewall_rules.sh
 exec chpst -u root /usr/bin/suricata -c /etc/suricata/suricata.yaml --nflog
