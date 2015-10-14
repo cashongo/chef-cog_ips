@@ -1,3 +1,7 @@
+# 0.1.8 (2015-10-14)
+- disable stats log, wastes space with no use
+- insert firewall rules at suricata startup
+
 # 0.1.6 (2015-10-13)
 - change suricata to use NFLOG instead of NFQ
 - disable unified log, IDK what is barnyard2
