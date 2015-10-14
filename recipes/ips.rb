@@ -142,10 +142,19 @@ end
   end
 end
 
+cookbook_file "/usr/local/bin/suricata_firewall_rules.sh" do
+  source 'suricata_firewall_rules.sh'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 runit_service 'suricata' do
   default_logger true
   action [ :enable, :start ]
 end
+
 
 cookbook_file "/etc/logrotate.d/suricata" do
   source "suricata_logrotate.conf"
