@@ -1,3 +1,6 @@
+# 0.1.9 (2015-11-18)
+- Disable http log and fast.log, eve.json is enough
+
 # 0.1.8 (2015-10-14)
 - disable stats log, wastes space with no use
 - insert firewall rules at suricata startup
