@@ -121,6 +121,35 @@ end
 
 #### end deploy key stuff
 
+directory "/etc/suricata/rules_repo" do
+  only_if { File.exist?("/etc/suricata/rules_repo") }
+  action :delete
+  recursive true
+end
+
+git '/etc/suricata/rules_repo' do
+  action :checkout
+  user 'root'
+  group 'root'
+  ssh_wrapper "/root/rules_ssh_wrapper.sh"
+  repository node['cog_ips']['rules_repo']
+  notifies :usr2, 'runit_service[suricata]', :delayed
+  not_if { File.exist?('/etc/suricata/rules/.git') }
+end
+
+directory '/etc/suricata/rules' do
+  action :delete
+  recursive true
+  not_if { File.exist?('/etc/suricata/rules/.git') }
+end
+
+ruby_block 'Rename rules dir' do
+  block do
+    ::File.rename('/etc/suricata/rules_repo','/etc/suricata/rules')
+  end
+  not_if { File.exist?('/etc/suricata/rules/.git') }
+end
+
 git "/etc/suricata/rules" do
   action :sync
   user 'root'
