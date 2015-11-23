@@ -1,3 +1,8 @@
+# 0.1.12 (2015-11-23)
+- set suricata log destination to syslog and log level to info
+- enable live reload of rules
+- fix invalid action on configuration update
+
 # 0.1.11 (2015-11-23)
 - compression on for logrotate
 - rotation set explicitly to daily
