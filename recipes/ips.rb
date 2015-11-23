@@ -167,7 +167,7 @@ end
     mode '0600'
     action :create
     # USR2 signal to suricata reloads rules
-    notifies :usr2, 'runit_service[suricata]', :delayed
+    notifies :restart, 'runit_service[suricata]', :delayed
   end
 end
 
