@@ -1,3 +1,7 @@
+# 0.1.11 (2015-11-23)
+- compression on for logrotate
+- rotation set explicitly to daily
+
 # 0.1.10 (2015-11-23)
 - Check out rules from git, even if rules dir exists
 
