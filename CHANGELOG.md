@@ -1,3 +1,6 @@
+# 0.1.10 (2015-11-23)
+- Check out rules from git, even if rules dir exists
+
 # 0.1.9 (2015-11-18)
 - Disable http log and fast.log, eve.json is enough
 
