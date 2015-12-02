@@ -1,3 +1,7 @@
+# 0.1.13 (2015-12-02)
+- set detection engine profile low
+- update suricata to 2.0.10
+
 # 0.1.12 (2015-11-23)
 - set suricata log destination to syslog and log level to info
 - enable live reload of rules
