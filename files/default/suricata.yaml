@@ -402,7 +402,7 @@ legacy:
 # If the argument specified is 0, the engine uses an internally defined
 # default limit.  On not specifying a value, we use no limits on the recursion.
 detect-engine:
-  - profile: medium
+  - profile: low
   - custom-values:
       toclient-src-groups: 2
       toclient-dst-groups: 2
