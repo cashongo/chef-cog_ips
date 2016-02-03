@@ -39,7 +39,7 @@ execute "Build suricata" do
 end
 
 execute "Install suricata" do
-  command "make install-full"
+  command "make install"
   cwd "/root/suricata-#{suricata_version}"
   only_if { !::File.exists?('/usr/bin/suricata') || !::FileUtils.identical?('/usr/bin/suricata',"/root/suricata-#{suricata_version}/src/.libs/suricata")}
 end
