@@ -1,3 +1,7 @@
+# 0.2.0 (2016-02-03)
+- Change build options
+- update suricata to 3.0
+
 # 0.1.13 (2015-12-02)
 - set detection engine profile low
 - update suricata to 2.0.10
