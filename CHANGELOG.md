@@ -1,3 +1,6 @@
+# 0.2.1 (2016-02-03)
+- Add new options to suricata.yaml (log netflow, smtp)
+
 # 0.2.0 (2016-02-03)
 - Change build options
 - update suricata to 3.0
