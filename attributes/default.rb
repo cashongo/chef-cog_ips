@@ -7,7 +7,7 @@ default['fail2ban']['services'] = {
     "maxretry" => "6"
   }
 }
-default['cog_ips']['suricata_version'] = '3.0'
+default['cog_ips']['suricata_version'] = '3.0.1'
 default['cog_ips']['rules_deploy_vault'] = 'cog_ips'
 default['cog_ips']['rules_deploy_bucket'] = 'deploykeys'
 default['cog_ips']['rules_deploy_key']    = 'NAME_OF_KEY'
