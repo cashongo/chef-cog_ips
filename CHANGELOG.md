@@ -1,3 +1,6 @@
+# 0.3.1
+- restrict some rule updates from oinkmaster
+
 # 0.3.0
 - update to suricata 3.0.1
 
