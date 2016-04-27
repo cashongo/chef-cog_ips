@@ -1,10 +1,7 @@
 #This recipe installs and configures a IPS on a machine
 
-
-include_recipe 'fail2ban'
 include_recipe 'chef-vault'
 include_recipe 'runit'
-
 
 suricata_version = node['cog_ips']['suricata_version']
 
