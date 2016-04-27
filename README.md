@@ -4,9 +4,6 @@ cog_ips Cookbook
 This cookbook installs suricata to your linux. It uses supervisor for managing suricata process
 (systemd is not universally available)
 
-It uses fail2ban supermarket cookbook https://supermarket.chef.io/cookbooks/fail2ban to control
-ssh.
-
 I do not expect any other local service running/ports open in local machine, so
 i have made no effort to contain IN/OUT traffic from machine, only forwarded
 traffic.
@@ -90,11 +87,21 @@ iptables -A FORWARD -j NFLOG --nflog-group 2
 ```
 
 
-Oinkmaster
+Suricata rules
 ----------
+
+Suricata rules should be updated with oinkmaster and oinkmaster.conf that is
+is included in this repo.
 
 Running oinkmaster:
 oinkmaster.pl -C /etc/oinkmaster.conf -o /etc/suricata/rules
+
+It is possible also to use oinkmaster.conf from this cookbook and just use
+different paths with command.
+
+In order to exclude some rule from suricata, change oinkmaster.conf,
+comment it and then update rules with oinkmaster with changed configuration
+file.
 
 This changes files in /etc/suricata/rules, remember to sync changes to ghithub!
 
