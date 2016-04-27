@@ -1,3 +1,7 @@
+# 0.4.0
+- update documentation about rules
+- remove fail2ban dependendency, this is managed by cog_security
+
 # 0.3.1
 - restrict some rule updates from oinkmaster
 
