@@ -7,6 +7,5 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.1'
 
 depends         'yum-epel',   '~> 0.6.2'
-depends         'fail2ban',   '~> 2.3.0'
 depends         'chef-vault', '~> 1.3.0'
 depends         'runit',      '~> 1.5.10'
