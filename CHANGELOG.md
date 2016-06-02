@@ -1,6 +1,9 @@
+# 0.5.0
+- replace deploy key logic with specific deploy key handler resource
+
 # 0.4.0
 - update documentation about rules
-- remove fail2ban dependendency, this is managed by cog_security
+- remove fail2ban dependency, this is managed by cog_security
 
 # 0.3.1
 - restrict some rule updates from oinkmaster
