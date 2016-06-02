@@ -86,23 +86,13 @@ package 'git'
 
 #### deploy key stuff
 
-directory '/root/.ssh' do
+keys = chef_vault_item( node['cog_ips']['rules_deploy_vault'], node['cog_ips']['rules_deploy_bucket'] )
+
+deploy_key node['cog_ips']['rules_deploy_key'] do
+  key_location '/root/.ssh'
+  key_content keys[node['cog_ips']['rules_deploy_key']]
+  user 'root'
   action :create
-  mode '0700'
-  owner 'root'
-  group 'root'
-end
-
-keys=chef_vault_item(node['cog_ips']['rules_deploy_vault'],node['cog_ips']['rules_deploy_bucket'])
-
-template "/root/.ssh/#{node['cog_ips']['rules_deploy_key']}" do
-  source 'key.erb'
-  mode '0600'
-  owner 'root'
-  group 'root'
-  variables({
-    :key => keys[node['cog_ips']['rules_deploy_key']]
-    })
 end
 
 template "/root/rules_ssh_wrapper.sh" do
