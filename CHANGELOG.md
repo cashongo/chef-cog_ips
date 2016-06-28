@@ -1,3 +1,6 @@
+# 0.6.0
+- Suricata 3.1
+
 # 0.5.0
 - replace deploy key logic with specific deploy key handler resource
 
