@@ -1,3 +1,9 @@
+# 0.6.2
+- Deps should be managed by peachy_base
+
+# 0.6.1
+- Turn off suricata stream alerts
+
 # 0.6.0
 - Suricata 3.1
 
