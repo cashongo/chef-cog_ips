@@ -992,7 +992,8 @@ rule-files:
  - emerging-worm.rules
  - tor.rules
  - decoder-events.rules # available in suricata sources under rules dir
- - stream-events.rules  # available in suricata sources under rules dir
+# Turn stream alerts off because of false positives, look at ticket #118075165
+# - stream-events.rules  # available in suricata sources under rules dir
  - http-events.rules    # available in suricata sources under rules dir
  - smtp-events.rules    # available in suricata sources under rules dir
  - dns-events.rules     # available in suricata sources under rules dir
