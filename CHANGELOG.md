@@ -1,3 +1,6 @@
+# 0.6.3
+- Upgraded suricata to 3.1.1
+
 # 0.6.2
 - Deps should be managed by peachy_base
 
