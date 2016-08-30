@@ -129,7 +129,7 @@ outputs:
         - ssh
         - smtp
         - flow
-        - netflow
+        #- netflow
 
   # alert output for use with Barnyard2
   - unified2-alert:
