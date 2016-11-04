@@ -1,3 +1,9 @@
+# 0.6.6
+- Upgraded suricata to 3.1.3
+
+# 0.6.5
+- Upgraded suricata to 3.1.2
+
 # 0.6.4
 - Disabled netflow logging, only enabled flow logging
 - Disabled a decoder alert rule
