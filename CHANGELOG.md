@@ -1,3 +1,6 @@
+# 0.6.7
+- Upgraded suricata to 3.2
+
 # 0.6.6
 - Upgraded suricata to 3.1.3
 
