@@ -1,27 +1,31 @@
+# 0.7.0
+- fix berksfile
+- upgraded suricata to 3.2.1
+
 # 0.6.7
-- Upgraded suricata to 3.2
+- upgraded suricata to 3.2
 
 # 0.6.6
-- Upgraded suricata to 3.1.3
+- upgraded suricata to 3.1.3
 
 # 0.6.5
-- Upgraded suricata to 3.1.2
+- upgraded suricata to 3.1.2
 
 # 0.6.4
-- Disabled netflow logging, only enabled flow logging
-- Disabled a decoder alert rule
+- disabled netflow logging, only enabled flow logging
+- disabled a decoder alert rule
 
 # 0.6.3
-- Upgraded suricata to 3.1.1
+- upgraded suricata to 3.1.1
 
 # 0.6.2
-- Deps should be managed by peachy_base
+- deps should be managed by peachy_base
 
 # 0.6.1
-- Turn off suricata stream alerts
+- turn off suricata stream alerts
 
 # 0.6.0
-- Suricata 3.1
+- upgraded suricata to 3.1
 
 # 0.5.0
 - replace deploy key logic with specific deploy key handler resource
@@ -60,7 +64,7 @@
 - Check out rules from git, even if rules dir exists
 
 # 0.1.9 (2015-11-18)
-- Disable http log and fast.log, eve.json is enough
+- disable http log and fast.log, eve.json is enough
 
 # 0.1.8 (2015-10-14)
 - disable stats log, wastes space with no use
